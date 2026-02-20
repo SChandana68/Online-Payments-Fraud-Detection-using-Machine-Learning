@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Fraud Detection System</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f7fa;
+        }
+        .container {
+            width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>AI-Powered Fraud Detection</h2>
+
+    <form method="POST" action="/predict">
+        <input type="text" name="User_ID" placeholder="User ID" required>
+
+        <input type="number" step="any" name="Amount" placeholder="Transaction Amount" required>
+
+        <select name="Payment_Method" required>
+            <option value="">Select Payment Method</option>
+            <option>UPI</option>
+            <option>Credit Card</option>
+            <option>Debit Card</option>
+            <option>Net Banking</option>
+            <option>Wallet</option>
+        </select>
+
+        <select name="Merchant_Category" required>
+            <option value="">Select Merchant Category</option>
+            <option>Shopping</option>
+            <option>Travel</option>
+            <option>Food</option>
+            <option>Electronics</option>
+            <option>Grocery</option>
+            <option>Bills</option>
+        </select>
+
+        <select name="Is_International" required>
+            <option value="">International Transaction?</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+
+        <select name="Device_Type" required>
+            <option value="">Device Type</option>
+            <option>Mobile</option>
+            <option>Desktop</option>
+        </select>
+
+        <input type="number" name="Account_Age_Months" placeholder="Account Age (Months)" required>
+
+        <select name="Previous_Fraud" required>
+            <option value="">Previous Fraud History?</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+
+        <button type="submit">Check Fraud Risk</button>
+    </form>
+
+    {% if risk %}
+        <div class="result">
+            Fraud Probability: {{ risk }} % <br>
+            Risk Level: {{ level }}
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+</div>
+
+</body>
+</html>
